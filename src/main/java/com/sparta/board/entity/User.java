@@ -2,6 +2,7 @@ package com.sparta.board.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,6 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "review")
-    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "board")
+    private List<Board> boards = new ArrayList<>();
 }

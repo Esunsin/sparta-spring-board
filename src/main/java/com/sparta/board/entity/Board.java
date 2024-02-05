@@ -20,6 +20,11 @@ public class Board {
     private String writer;
     private Date date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "review")
     private List<Review> reviews = new ArrayList<>();
+
 }
