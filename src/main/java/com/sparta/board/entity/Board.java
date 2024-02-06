@@ -41,7 +41,6 @@ public class Board {
     private List<Review> reviews = new ArrayList<>();
 
     protected Board() {
-
     }
 
 }

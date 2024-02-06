@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +19,15 @@ public class UserService {
     private final UserRepository userRepository;
 
 
+
     @Transactional
     public ResponseUserDto join(RequestUserDto requestUserDto) {
+        //중복체크
+        duplicationValidateByName(requestUserDto.getUsername());
+
         User user = new User(requestUserDto.getUsername(), requestUserDto.getPassword());
         User saved = userRepository.save(user);
-        ResponseUserDto responseUserDto= new ResponseUserDto(saved.getUsername());
-        return responseUserDto;
+        return new ResponseUserDto(saved.getUsername());
     }
 
     public List<ResponseUserDto> findAll(){
@@ -35,8 +39,11 @@ public class UserService {
         return responseUserDtos;
     }
 
-    public User findById(Long id) {
-        User byId = userRepository.findById(id).orElseThrow();
-        return byId;
+    //중복체크(DB에 중복 회원이 있는지 확인)
+    private void duplicationValidateByName(String name){
+        Optional<User> byName = userRepository.findByUsername(name);
+        if(byName.isPresent()){
+            throw new IllegalArgumentException("존재하는 회원입니다.");
+        }
     }
 }

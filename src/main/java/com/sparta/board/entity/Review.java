@@ -12,7 +12,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private String writer;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

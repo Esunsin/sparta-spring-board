@@ -14,7 +14,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     @PostMapping("/{userId}")
-    public ResponseBoardDto join(@PathVariable Long userId, @RequestBody RequestBoardDto boardDto) {
+    public ResponseBoardDto createBoard(@PathVariable Long userId, @RequestBody RequestBoardDto boardDto) {
         return boardService.createBoard(boardDto,userId);
     }
 

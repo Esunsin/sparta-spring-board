@@ -1,6 +1,9 @@
 package com.sparta.board.dto.board;
 
+import com.sparta.board.entity.Review;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class ResponseBoardDto {
@@ -14,5 +17,7 @@ public class ResponseBoardDto {
         this.writer = writer;
         this.date = date;
     }
+
+
 
 }
