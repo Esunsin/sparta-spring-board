@@ -3,6 +3,7 @@ package com.sparta.board.comment;
 import java.util.concurrent.RejectedExecutionException;
 
 import com.sparta.board.todo.Todo;
+import com.sparta.board.todo.TodoRepository;
 import com.sparta.board.todo.TodoService;
 import com.sparta.board.user.User;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommentService {
 	private final CommentRepository commentRepository;
-	private final TodoService todoService;
+	private final TodoRepository todoRepository;
 
 	public CommentResponseDTO createComment(CommentRequestDTO dto, User user) {
-		Todo todo = todoService.getTodo(dto.getTodoId());
+		Todo todo = todoRepository.findById(dto.getTodoId()).orElseThrow(() -> new NullPointerException("없는 게시물입니다."));
 
 		Comment comment = new Comment(dto);
 		comment.setUser(user);
